@@ -24,6 +24,7 @@ app.use(morgan("dev")); //morgan configure
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/promocodes", promocodeRoutes);
+
 //rest api
 app.get("/", (req, res) => {
   // res.send({

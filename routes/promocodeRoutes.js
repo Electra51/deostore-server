@@ -8,7 +8,9 @@ import {
   deletePromocodeController,
   getPromocodeController,
   getSinglePromocodeController,
+  promoCodeGetForUserController,
   promoCodeStatusController,
+  promoCodeValidateController,
   updatePromoCodeStatusController,
   updatePromocodeController,
 } from "../controllers/promoCodeController.js";
@@ -54,4 +56,18 @@ router.put(
   promoCodeStatusController
 );
 
+//userpromo
+router.get(
+  "/get-promo-code-user",
+  requireSignIn,
+
+  promoCodeGetForUserController
+);
+
+router.post(
+  "/apply-promo-code",
+  requireSignIn,
+
+  promoCodeValidateController
+);
 export default router;

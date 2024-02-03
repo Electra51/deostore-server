@@ -2,6 +2,12 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
+    id: [
+      {
+        type: mongoose.ObjectId,
+        ref: "promo",
+      },
+    ],
     name: {
       type: String,
       required: true,

@@ -266,3 +266,59 @@ export const promoCodeStatusController = async (req, res) => {
     });
   }
 };
+
+//user promocode
+export const promoCodeGetForUserController = async (req, res) => {
+  try {
+    // Logic to get a promo code for the logged-in user
+    const promoCode = await promoCodeModel.findOne({ active: true });
+
+    res.status(200).json({
+      success: true,
+      promoCode,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching promo code",
+    });
+  }
+};
+
+export const promoCodeValidateController = async (req, res) => {
+  try {
+    const { promoCode } = req.body;
+
+    // Check if the promo code exists in the database
+    const existingPromoCode = await promoCodeModel.findOne({
+      name: promoCode,
+    });
+
+    if (!existingPromoCode) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Invalid promo code" });
+    }
+
+    // Check if the promo code has been used up
+    if (existingPromoCode.use_time <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: "This promo Code has expired",
+      });
+    }
+
+    // You may add additional logic here, e.g., checking if the promo code is active, within date range, etc.
+
+    // Decrement the use_time counter and save the updated promo code
+    existingPromoCode.use_time -= 1;
+    await existingPromoCode.save();
+
+    // Respond with the discount rate
+    res.json({ success: true, discountRate: existingPromoCode.discount_rate });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
