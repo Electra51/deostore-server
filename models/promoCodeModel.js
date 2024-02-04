@@ -21,11 +21,11 @@ const promocodeSchema = new mongoose.Schema(
       required: true,
     },
     start_date: {
-      type: Date, // Change to Date type for proper date handling
+      type: Date,
       required: true,
     },
     end_date: {
-      type: Date, // Change to Date type for proper date handling
+      type: Date,
       required: true,
     },
     discount_rate: {
@@ -33,12 +33,12 @@ const promocodeSchema = new mongoose.Schema(
       required: true,
     },
     use_time: {
-      type: Number, // Change to Number type if use_time is a numerical value
+      type: Number,
       required: true,
     },
     active: {
       type: Boolean,
-      default: true, // Set a default value if needed
+      default: true,
     },
   },
   { timestamps: true }

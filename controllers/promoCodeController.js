@@ -2,58 +2,12 @@ import fs from "fs";
 import slugify from "slugify";
 import promoCodeModel from "../models/promoCodeModel.js";
 
-// export const createPromoCodeController = async (req, res) => {
-//   try {
-//     const { name, start_date, discount_rate, end_date, use_time, active } =
-//       req.fields;
-
-//     console.log("first", req.fields);
-//     // Convert promo_code to uppercase
-//     // promo_code = promo_code?.toUpperCase();
-
-//     // Validation
-//     switch (true) {
-//       case !name:
-//         return res.status(500).send({ error: "name is Required" });
-//       case !discount_rate:
-//         return res.status(500).send({ error: "discount_rate is Required" });
-//       case !start_date:
-//         return res.status(500).send({ error: "start_date is Required" });
-//       case !end_date:
-//         return res.status(500).send({ error: "end_date is Required" });
-//       case !use_time:
-//         return res.status(500).send({ error: "use_time is Required" });
-//     }
-
-//     const promocode = new promoCodeModel({
-//       ...req.fields,
-//       slug: slugify(name),
-//     });
-
-//     console.log("e", req.fields);
-//     // await promocode.save();
-
-//     res.status(201).send({
-//       success: true,
-//       message: "Promocode Created Successfully",
-//       promocode,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send({
-//       success: false,
-//       error,
-//       message: "Error in creating promocode",
-//     });
-//   }
-// };
-
 export const createPromoCodeController = async (req, res) => {
   try {
     const { name, start_date, discount_rate, end_date, use_time, active } =
       req.fields;
     const { photo } = req.files;
-    //validation
+
     switch (true) {
       case !name:
         return res.status(500).send({ error: "name is Required" });
@@ -156,13 +110,13 @@ export const deletePromocodeController = async (req, res) => {
   }
 };
 
-//upate producta
+//promocode update
 export const updatePromocodeController = async (req, res) => {
   try {
     const { name, start_date, discount_rate, end_date, use_time, active } =
       req.fields;
     const { photo } = req.files;
-    //validation
+
     switch (true) {
       case !name:
         return res.status(500).send({ error: "name is Required" });
@@ -205,7 +159,7 @@ export const updatePromocodeController = async (req, res) => {
   }
 };
 
-// Add a new controller function for updating the promo code status
+// updating the promo code status
 export const updatePromoCodeStatusController = async (req, res) => {
   try {
     const { active } = req.fields;
@@ -238,11 +192,9 @@ export const updatePromoCodeStatusController = async (req, res) => {
 //order status
 export const promoCodeStatusController = async (req, res) => {
   try {
-    const { id } = req.params; // Fix the parameter name
-    // console.log("promoId", promoId);
+    const { id } = req.params;
     const { active } = req.body;
     console.log("promoId", id, active);
-    // Make sure to handle the case where the promoCode is not found
     const promoCode = await promoCodeModel.findByIdAndUpdate(
       id,
       { active },
@@ -309,13 +261,10 @@ export const promoCodeValidateController = async (req, res) => {
       });
     }
 
-    // You may add additional logic here, e.g., checking if the promo code is active, within date range, etc.
-
     // Decrement the use_time counter and save the updated promo code
     existingPromoCode.use_time -= 1;
     await existingPromoCode.save();
 
-    // Respond with the discount rate
     res.json({ success: true, discountRate: existingPromoCode.discount_rate });
   } catch (error) {
     console.error(error);

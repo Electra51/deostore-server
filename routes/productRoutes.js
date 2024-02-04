@@ -12,8 +12,7 @@ import {
 import formidable from "express-formidable";
 const router = express.Router();
 
-//all routes
-//product-create ; method POST
+//product-create
 router.post(
   "/create-product",
   requireSignIn,

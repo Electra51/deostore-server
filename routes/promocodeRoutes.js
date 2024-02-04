@@ -11,13 +11,11 @@ import {
   promoCodeGetForUserController,
   promoCodeStatusController,
   promoCodeValidateController,
-  updatePromoCodeStatusController,
   updatePromocodeController,
 } from "../controllers/promoCodeController.js";
 const router = express.Router();
 
-//all routes
-//product-create ; method POST
+//promo-create
 router.post(
   "/create-promocode",
   requireSignIn,
@@ -60,14 +58,8 @@ router.put(
 router.get(
   "/get-promo-code-user",
   requireSignIn,
-
   promoCodeGetForUserController
 );
 
-router.post(
-  "/apply-promo-code",
-  requireSignIn,
-
-  promoCodeValidateController
-);
+router.post("/apply-promo-code", requireSignIn, promoCodeValidateController);
 export default router;

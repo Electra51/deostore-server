@@ -15,7 +15,7 @@ export const createProductController = async (req, res) => {
       active,
     } = req.fields;
     const { photo } = req.files;
-    //validation
+
     switch (true) {
       case !name:
         return res.status(500).send({ error: "Name is Required" });
@@ -39,7 +39,7 @@ export const createProductController = async (req, res) => {
           .send({ error: "photo is Required and should be less then 2mb" });
     }
 
-    const products = new productModel({ ...req.fields, slug: slugify(_id) });
+    const products = new productModel({ ...req.fields, slug: slugify(name) });
     if (photo) {
       products.photo.data = fs.readFileSync(photo.path);
       products.photo.contentType = photo.type;
@@ -141,7 +141,7 @@ export const deleteProductController = async (req, res) => {
   }
 };
 
-//upate producta
+//update product
 export const updateProductController = async (req, res) => {
   try {
     const {
@@ -155,7 +155,7 @@ export const updateProductController = async (req, res) => {
       active,
     } = req.fields;
     const { photo } = req.files;
-    //alidation
+
     switch (true) {
       case !name:
         return res.status(500).send({ error: "Name is Required" });
