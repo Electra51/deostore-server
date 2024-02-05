@@ -14,7 +14,7 @@ import {
 const router = express.Router();
 
 //all routes
-//Register ; method POST
+
 router.post("/register", registerController);
 
 //Login ; method POST
