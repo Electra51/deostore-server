@@ -10,6 +10,7 @@ import {
   getOrdersController,
   orderStatusController,
 } from "../controllers/orderController.js";
+
 const router = express.Router();
 
 //all routes
@@ -45,5 +46,11 @@ router.put(
   isAdmin,
   orderStatusController
 );
+
+// router.get(
+//   "/get-promo-code-user",
+//   requireSignIn,
+//   promoCodeGetForUserController
+// );
 
 export default router;
